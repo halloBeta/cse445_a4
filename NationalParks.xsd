@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!-- Root element: the directory of national parks -->
   <xs:element name="NationalParks">
@@ -18,7 +18,7 @@
               <xs:element name="Address" minOccurs="1" maxOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="Number" type="xs:int" />
+                    <xs:element name="Number" type="xs:string" />
                     <xs:element name="Street" type="xs:string" />
                     <xs:element name="City" type="xs:string" />
                     <xs:element name="State" type="xs:string" />
