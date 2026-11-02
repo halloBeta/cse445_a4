@@ -1,40 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns="http://venus.sod.asu.edu/WSRepository/xml"
+   targetNamespace="http://venus.sod.asu.edu/WSRepository/xml"
+   elementFormDefault="qualified" attributeFormDefault="unqualified">
 
-  <!-- Root element: the directory of national parks -->
-  <xs:element name="NationalParks">
-    <xs:complexType>
-      <xs:sequence>
-        <!-- One or more national parks; all have the same structure -->
-        <xs:element name="NationalPark" minOccurs="1" maxOccurs="unbounded">
-          <xs:complexType>
-            <!-- Child elements must appear in this (left-to-right) order -->
-            <xs:sequence>
-              <!-- Exactly one name per park -->
-              <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
-              <!-- At least one phone number; multiple phones are allowed -->
-              <xs:element name="Phone" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
-              <!-- Exactly one address per park -->
-              <xs:element name="Address" minOccurs="1" maxOccurs="1">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="Number" type="xs:string" />
-                    <xs:element name="Street" type="xs:string" />
-                    <xs:element name="City" type="xs:string" />
-                    <xs:element name="State" type="xs:string" />
-                    <xs:element name="Zip" type="xs:string" />
-                  </xs:sequence>
-                  <!-- Required attribute: must be given on every Address -->
-                  <xs:attribute name="NearestAirport" type="xs:string" use="required" />
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-            <!-- Optional (implied) attribute: given for some parks only -->
-            <xs:attribute name="Rating" type="xs:decimal" use="optional" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+   <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+       CSE445 Assignment 4: directory of national parks
+      </xsd:documentation>
+   </xsd:annotation>
 
-</xs:schema>
+   <!-- Root element: the directory of national parks -->
+   <xsd:element name="NationalParks" type="NationalParksType"/>
+
+   <!-- One or more national parks; all have the same structure -->
+   <xsd:complexType name="NationalParksType">
+      <xsd:sequence>
+         <xsd:element name="NationalPark" type="NationalParkDetails" minOccurs="1" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+
+   <!-- Child elements must appear in this (left-to-right) order -->
+   <xsd:complexType name="NationalParkDetails">
+      <xsd:sequence>
+         <xsd:element name="Name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <!-- At least one phone number; multiple phones are allowed -->
+         <xsd:element name="Phone" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+         <xsd:element name="Address" type="AddressDetails" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+      <!-- Optional (implied) attribute: given for some parks only -->
+      <xsd:attribute name="Rating" type="xsd:decimal" use="optional"/>
+   </xsd:complexType>
+
+   <xsd:complexType name="AddressDetails">
+      <xsd:sequence>
+         <xsd:element name="Number" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="Street" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="City" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="State" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="Zip" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+      <!-- Required attribute: must be given on every Address -->
+      <xsd:attribute name="NearestAirport" type="xsd:string" use="required"/>
+   </xsd:complexType>
+
+</xsd:schema>
